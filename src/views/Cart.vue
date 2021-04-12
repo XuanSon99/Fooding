@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { defineComponent } from "vue";
 import { trashOutline } from "ionicons/icons";
 export default defineComponent({
@@ -69,7 +70,23 @@ export default defineComponent({
   },
   methods: {
     checkOut() {
-      this.$router.push("/check-out");
+      // this.$router.push("/check-out");
+      if (!this.cart[0]) return;
+      for (let item of this.cart) {
+        let body = {
+          user_id: 1,
+          product_id: item.id,
+          address: "Khu 2",
+          price: item.price * item.quantity,
+          quantity: item.quantity,
+          status: "yes",
+        };
+        axios
+          .post("http://127.0.0.1:8000/api/bills/", body)
+          .then((response) => {
+            console.log(response);
+          });
+      }
     },
     quantityHandle(item, method) {
       var index = this.cart.indexOf(item);
