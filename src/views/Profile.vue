@@ -1,54 +1,98 @@
 <template>
-  <!-- <base-layout pageTitle="Profile"> -->
-  <ion-page>
+  <base-layout pageTitle="Profile">
     <ion-card class="profile">
-      <span class="avatar">
+      <h1>
+        {{ name }}
         <ion-icon :icon="heart"></ion-icon>
-      </span>
-      <span class="tab active">Thông tin cá nhân</span>
-      <span class="tab">Liên kết tài khoản</span>
-      <span class="tab">Lịch sử đặt hàng</span>
-      <span class="tab">Vị trí đã lưu</span>
+      </h1>
+      <span><ion-icon :icon="cloudUpload"></ion-icon>Cập nhật thông tin</span>
+      <span><ion-icon :icon="navigateCircle"></ion-icon>Thêm địa chỉ</span>
+      <span><ion-icon :icon="cart"></ion-icon>Đơn hàng của tôi</span>
+      <span @click="logOutHandle"
+        ><ion-icon :icon="logOut"></ion-icon>Đăng xuất</span
+      >
     </ion-card>
-  </ion-page>
-  <!-- </base-layout> -->
+  </base-layout>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-import { heart } from "ionicons/icons";
+import { Storage } from "@ionic/storage";
+import {
+  heart,
+  cloudUpload,
+  navigateCircle,
+  cart,
+  logOut,
+} from "ionicons/icons";
 export default defineComponent({
   name: "Tab2",
   components: {},
   data() {
-    return {};
+    return {
+      localStorage: new Storage(),
+      name: "",
+    };
   },
   setup() {
     return {
       heart,
+      cloudUpload,
+      navigateCircle,
+      cart,
+      logOut,
     };
   },
   mounted() {
-    let tab = document.querySelectorAll(".tab");
-    tab.forEach((item) => {
-      item.onclick = function () {
-        tab.forEach((i) => {
-          i.classList.remove("active");
-        });
-        item.classList.add("active");
-      };
-    });
+    this.localStorage.create();
+    this.getUserData();
+  },
+  methods: {
+    async getUserData() {
+      let result = await this.localStorage.get("userData");
+      this.name = result.data[0].name;
+    },
+    logOutHandle() {
+      this.localStorage.clear();
+      this.$router.push("/login");
+    },
   },
 });
 </script>
 <style>
-.tab.active {
-  box-shadow: 4px 4px 10px #000000, -4px -4px 10px #401e64,
-    inset 4px 4px 10px #000000, inset -4px -4px 10px #401e64;
-}
 .profile {
+  background: #fff;
+  color: #200f33;
+}
+.profile h1 {
   margin: 0;
-  height: calc(100vh - 50px);
-  border-radius: 0;
+  font-size: 18px;
+  text-transform: uppercase;
+  padding: 20px;
+  background: linear-gradient(to bottom right, #ebeeff 0%, #f9e3e5 100%);
+  height: 80px;
+  display: flex;
+  align-items: center;
+  background: #200f33;
+  color: #fff;
+}
+.profile h1 ion-icon {
+  margin-left: 10px;
+  color: #fa2500;
+}
+.profile > span {
+  display: flex;
+  padding: 0 20px;
+  height: 50px;
+  align-items: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.profile > span ion-icon {
+  margin-right: 10px;
+}
+.profile span:not(:last-child) {
+  border-bottom: 1px solid #200f3317;
 }
 </style>

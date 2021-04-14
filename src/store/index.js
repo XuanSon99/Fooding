@@ -4,6 +4,8 @@ const store = createStore({
   state() {
     return {
       cart: [],
+      urlAPI: "http://127.0.0.1:8000/api/",
+      userData: {}
     };
   },
   mutations: {
@@ -20,6 +22,12 @@ const store = createStore({
     },
     removeCart(state, index) {
       state.cart.splice(index, 1);
+    },
+    removeAllCart(state) {
+      state.cart = []
+    },
+    saveUserData(state, data) {
+      state.userData = data
     }
   },
   actions: {
@@ -28,11 +36,23 @@ const store = createStore({
     },
     removeCart(context, index) {
       context.commit('removeCart', index);
+    },
+    removeAllCart(context) {
+      context.commit('removeAllCart');
+    },
+    saveUserData(context, index) {
+      context.commit('saveUserData', index);
     }
   },
   getters: {
     cart(state) {
       return state.cart;
+    },
+    urlAPI(state) {
+      return state.urlAPI;
+    },
+    userData(state) {
+      return state.userData;
     },
     memory(state) {
       return (memoryId) => {

@@ -32,7 +32,9 @@
         ground meat, usually beef, placed inside a sliced bread roll or bun. The
         patty may be pan fried, grilled, smoked or flame broiled.</span
       >
-      <button class="btn-all" @click="addCart">Add to cart</button>
+      <button class="btn-all" @click="addCart">
+        Add to cart
+      </button>
     </div>
   </base-layout>
 </template>
@@ -40,53 +42,11 @@
 <script>
 import axios from "axios";
 import { defineComponent } from "vue";
+import { toastController } from "@ionic/vue";
 export default defineComponent({
   name: "Detail",
   data() {
     return {
-      list: [
-        {
-          image: "https://mcdonalds.vn/uploads/2018/2-ga-ran.png",
-          name: "Combo",
-          description: "So delicious, so you should buy it right now",
-          price: "36.000",
-        },
-        {
-          image:
-            "https://mcdonalds.vn/uploads/2018/food/burgers/mcchicken-deluxe.png",
-          name: "Burgers",
-          description: "So delicious, so you should buy it right now",
-          price: "40.000",
-        },
-        {
-          image:
-            "https://mcdonalds.vn/uploads/2018/food/ga-ran/large_world_famous_fries.png",
-          name: "Snack",
-          description: "So delicious, so you should buy it right now",
-          price: "28.000",
-        },
-        {
-          image:
-            "https://mcdonalds.vn/uploads/2018/food/beverage/hero-pdt-Fanta-201703_0.png",
-          name: "Drink",
-          description: "So delicious, so you should buy it right now",
-          price: "38.000",
-        },
-        {
-          image:
-            "https://mcdonalds.vn/uploads/2018/food/rice/MEAL_porkrice.png",
-          name: "Pork Rice",
-          description: "So delicious, so you should buy it right now",
-          price: "68.000",
-        },
-        {
-          image:
-            "https://mcdonalds.vn/uploads/2018/food/desserts/hotfudge_mcsundae.png",
-          name: "Cream",
-          description: "So delicious, so you should buy it right now",
-          price: "18.000",
-        },
-      ],
       product: {},
     };
   },
@@ -96,10 +56,9 @@ export default defineComponent({
         .get("http://127.0.0.1:8000/api/products/" + this.$route.params.id)
         .then((response) => {
           this.product = response.data;
-          console.log(this.product);
         });
     },
-    addCart() {
+    async addCart() {
       let data = {
         id: this.product.id,
         image: this.product.image,
@@ -109,7 +68,14 @@ export default defineComponent({
         quantity: 1,
       };
       this.$store.dispatch("addCart", data);
-      this.$router.push("/cart");
+      const toast = await toastController.create({
+        message: "Thêm thành công",
+        duration: 2000,
+        header: "Thông báo",
+        position: "top",
+        cssClass: "toastClass",
+      });
+      return toast.present();
     },
     formatMoney(value) {
       return String(value)

@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-header>
+    <ion-header v-if="$route.meta.show">
       <ion-toolbar class="header">
         <ion-buttons slot="start" class="header-title">
           {{ pageTitle }}

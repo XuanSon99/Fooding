@@ -7,6 +7,16 @@ const routes = [
     redirect: '/home'
   },
   {
+    path: '/login',
+    component: () => import('@/views/Login.vue'),
+    meta: { show: false }
+  },
+  {
+    path: '/register',
+    component: () => import('@/views/Register.vue'),
+    meta: {show: false}
+  },
+  {
     path: '/',
     component: Tabs,
     children: [
@@ -15,35 +25,40 @@ const routes = [
         redirect: '/home'
       },
       {
-        path: 'home',
+        path: '/home',
         component: () => import('@/views/Home.vue')
       },
       {
-        path: 'search',
-        component: () => import('@/views/Search.vue')
+        path: '/search',
+        component: () => import('@/views/Search.vue'),
+        meta: { show: true }
       },
       {
-        path: 'check-out',
-        component: () => import('@/views/CheckOut.vue')
+        path: '/check-out',
+        component: () => import('@/views/CheckOut.vue'),
+        meta: { show: true }
       },
       {
-        path: 'product/:id',
-        component: () => import('@/views/Product.vue')
+        path: '/product/:id',
+        component: () => import('@/views/Product.vue'),
+        meta: { show: true }
       },
       {
-        path: 'detail/:id',
-        component: () => import('@/views/Details.vue')
+        path: '/detail/:id',
+        component: () => import('@/views/Details.vue'),
+        meta: { show: true }
       },
       {
-        path: 'cart',
-        component: () => import('@/views/Cart.vue')
+        path: '/cart',
+        component: () => import('@/views/Cart.vue'),
       },
       {
-        path: 'profile',
-        component: () => import('@/views/Profile.vue')
-      }
+        path: '/profile',
+        component: () => import('@/views/Profile.vue'),
+      },
     ]
   }
+
 ]
 
 const router = createRouter({

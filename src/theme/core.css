@@ -427,37 +427,6 @@ button.btn-all {
     background-repeat: repeat-x;
 }
 
-.profile {
-    background: #200f33;
-    height: 80vh;
-    padding: 30px;
-}
-
-.profile .avatar {
-    border-radius: 50%;
-    box-shadow: 4px 4px 10px #000000, -4px -4px 10px #432068, inset 4px 4px 10px #000000, inset -4px -4px 10px #432068;
-    height: 60px;
-    width: 60px;
-    display: flex;
-    background: #200f33;
-    align-items: center;
-    justify-content: center;
-    color: #dcbbff;
-}
-
-.profile .tab {
-    margin-top: 25px;
-    display: flex;
-    height: 50px;
-    box-shadow: 4px 4px 10px #000000, -4px -4px 10px #401e64;
-    border-radius: 50px;
-    padding: 0 20px;
-    font-size: 14px;
-    color: #dcbbff;
-    font-weight: 600;
-    align-items: center;
-    justify-content: center;
-}
 .product .remove{
     height: 80px;
     width: 30px;
@@ -475,4 +444,41 @@ button.btn-all {
 }
 .cart .product {
     padding-right: 0;
+}
+.empty-cart{
+    padding: 50px 20px;
+    text-align: center;
+    background: url("https://cdn.dribbble.com/users/471953/screenshots/5274211/recover-abandoned-carts.gif") center;
+    background-size: cover;
+    height: 50vh;
+    margin-top: 20vh;
+    position: relative;
+    margin: 0;
+    border-radius: 0;
+    height: calc(100vh - 50px);
+}
+.empty-cart h1{
+    color: #200f33;
+    font-size: 22px;
+    text-transform: uppercase;
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 100px;
+}
+.empty-cart a{
+    position: absolute;
+    width: 80%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 100px;
+    text-decoration: none;
+}
+.empty-cart a button{
+    background: #200f33;
+    color: #fff;
+    box-shadow: 5px 5px 10px #200f3341;
 }
