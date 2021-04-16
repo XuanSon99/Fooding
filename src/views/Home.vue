@@ -53,7 +53,7 @@
         <h1 class="title-1" style="margin-top: 10px">Let's eat</h1>
         <ion-slides pager="true" :options="slideOpts">
           <ion-slide v-for="(item, index) in list" :key="index">
-            <img :src="'http://127.0.0.1:8000/' + item.image" alt="" />
+            <img :src="item.image" alt="" />
           </ion-slide>
         </ion-slides>
       </div>
@@ -82,6 +82,7 @@ export default defineComponent({
   data() {
     return {
       cateList: [],
+      list: [{image: "http://127.0.0.1:8000/storage/images/k9Ufh48avJEjiBkNPauh51tnzwb3EdNhHN59jUml.png"}]
     };
   },
   mounted() {
@@ -91,7 +92,6 @@ export default defineComponent({
     getList() {
       axios.get("http://127.0.0.1:8000/api/categories").then((response) => {
         this.cateList = response.data;
-        console.log(this.cateList);
       });
     },
     toCategory(id) {

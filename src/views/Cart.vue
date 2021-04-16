@@ -168,36 +168,3 @@ export default defineComponent({
   },
 });
 </script>
-<style>
-.alertClass .alert-title.sc-ion-alert-ios {
-  margin-top: 0;
-}
-.alertClass .alert-button-group button:last-child {
-  font-weight: 600;
-  border-top: 1px solid #200f331a;
-  color: #200f33;
-  font-size: 14px;
-}
-.alertClass .alert-tappable.sc-ion-alert-ios {
-  height: 40px;
-  padding: 0 10px;
-}
-.alertClass .alert-radio-group.sc-ion-alert-ios {
-  max-height: 120px;
-  border-top: 1px solid #200f331a;
-}
-.alertClass .alert-button-group button:first-child {
-  border-right: 1px solid #200f331a;
-  border-top: 1px solid #200f331a;
-  color: #200f33;
-  font-size: 14px;
-  font-weight: 600;
-}
-.alertClass .alert-head.sc-ion-alert-ios {
-  padding: 10px;
-  padding-bottom: 0;
-}
-.alertClass .alert-button.sc-ion-alert-ios {
-  height: 40px;
-}
-</style>

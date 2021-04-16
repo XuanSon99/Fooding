@@ -2,12 +2,16 @@
   <base-layout pageTitle="Profile">
     <ion-card class="profile">
       <h1>
-        {{ name }}
+        {{ user.name }}
         <ion-icon :icon="heart"></ion-icon>
       </h1>
-      <span><ion-icon :icon="cloudUpload"></ion-icon>Cập nhật thông tin</span>
+      <span @click="updateProfile"
+        ><ion-icon :icon="cloudUpload"></ion-icon>Cập nhật thông tin</span
+      >
       <span><ion-icon :icon="navigateCircle"></ion-icon>Thêm địa chỉ</span>
-      <span><ion-icon :icon="cart"></ion-icon>Đơn hàng của tôi</span>
+      <span @click="theOrder"
+        ><ion-icon :icon="cart"></ion-icon>Đơn hàng của tôi</span
+      >
       <span @click="logOutHandle"
         ><ion-icon :icon="logOut"></ion-icon>Đăng xuất</span
       >
@@ -25,13 +29,14 @@ import {
   cart,
   logOut,
 } from "ionicons/icons";
+import { alertController } from "@ionic/vue";
 export default defineComponent({
   name: "Tab2",
   components: {},
   data() {
     return {
       localStorage: new Storage(),
-      name: "",
+      user: "",
     };
   },
   setup() {
@@ -50,11 +55,55 @@ export default defineComponent({
   methods: {
     async getUserData() {
       let result = await this.localStorage.get("userData");
-      this.name = result.data[0].name;
+      this.user = result.data[0];
     },
     logOutHandle() {
       this.localStorage.clear();
       this.$router.push("/login");
+    },
+    async updateProfile() {
+      const alert = await alertController.create({
+        cssClass: "alertClass",
+        header: "Thông tin",
+        inputs: [
+          {
+            value: this.user.name,
+            attributes: {
+              inputmode: "text",
+            },
+          },
+          {
+            value: this.user.phone,
+            type: "number",
+            attributes: {
+              readOnly: "true",
+            },
+          },
+          {
+            value: this.user.email,
+            type: "email",
+            attributes: {
+              inputmode: "text",
+            },
+          },
+        ],
+        buttons: [
+          {
+            text: "Hủy",
+            role: "cancel",
+          },
+          {
+            text: "Cập nhật",
+            handler: () => {
+              console.log("Confirm Ok");
+            },
+          },
+        ],
+      });
+      return alert.present();
+    },
+    theOrder() {
+      this.$router.push("/my-order/" + this.user.id);
     },
   },
 });

@@ -427,7 +427,7 @@ button.btn-all {
     background-repeat: repeat-x;
 }
 
-.product .remove{
+.product .remove {
     height: 80px;
     width: 30px;
     background: #ffe6e8;
@@ -438,14 +438,17 @@ button.btn-all {
     color: #200f33;
     font-size: 14px;
 }
-.product .remove ion-icon{
+
+.product .remove ion-icon {
     height: 15px;
     width: 15px;
 }
+
 .cart .product {
     padding-right: 0;
 }
-.empty-cart{
+
+.empty-cart {
     padding: 50px 20px;
     text-align: center;
     background: url("https://cdn.dribbble.com/users/471953/screenshots/5274211/recover-abandoned-carts.gif") center;
@@ -457,7 +460,8 @@ button.btn-all {
     border-radius: 0;
     height: calc(100vh - 50px);
 }
-.empty-cart h1{
+
+.empty-cart h1 {
     color: #200f33;
     font-size: 22px;
     text-transform: uppercase;
@@ -468,7 +472,8 @@ button.btn-all {
     margin: 0 auto;
     top: 100px;
 }
-.empty-cart a{
+
+.empty-cart a {
     position: absolute;
     width: 80%;
     left: 0;
@@ -477,8 +482,69 @@ button.btn-all {
     bottom: 100px;
     text-decoration: none;
 }
-.empty-cart a button{
+
+.empty-cart a button {
     background: #200f33;
     color: #fff;
     box-shadow: 5px 5px 10px #200f3341;
+}
+
+.alertClass .alert-title.sc-ion-alert-ios {
+    margin-top: 0;
+}
+
+.alertClass .alert-button-group button:last-child {
+    font-weight: 600;
+    border-top: 1px solid #200f331a;
+    color: #200f33;
+    font-size: 14px;
+}
+
+.alertClass .alert-tappable.sc-ion-alert-ios {
+    height: 40px;
+    padding: 0 10px;
+}
+
+.alertClass .alert-radio-group.sc-ion-alert-ios {
+    max-height: 120px;
+    border-top: 1px solid #200f331a;
+}
+
+.alertClass .alert-button-group button:first-child {
+    border-right: 1px solid #200f331a;
+    border-top: 1px solid #200f331a;
+    color: #200f33;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.alertClass .alert-head.sc-ion-alert-ios {
+    padding: 10px;
+    padding-bottom: 0;
+}
+
+.alertClass .alert-button.sc-ion-alert-ios {
+    height: 40px;
+}
+
+.my-bill {
+    padding: 10px 20px;
+    color: #200f33;
+}
+
+.my-bill table {
+    width: 100%;
+}
+
+.my-bill table td {
+    padding: 5px;
+}
+
+.my-bill table tr:not(:last-child) td{
+    border-bottom: 1px solid #200f331e;
+}
+
+.my-bill table td:first-child {
+    font-weight: 600;
+    width: 40%;
 }

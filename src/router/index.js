@@ -56,6 +56,11 @@ const routes = [
         path: '/profile',
         component: () => import('@/views/Profile.vue'),
       },
+      {
+        path: '/my-order/:id',
+        component: () => import('@/views/TheOrder.vue'),
+        meta: { show: true }
+      },
     ]
   }
 

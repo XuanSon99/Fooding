@@ -10,6 +10,16 @@ const store = createStore({
   },
   mutations: {
     addCart(state, data) {
+      let flag = false
+      if(state.cart[0]){
+        for(let i = 0; i < state.cart.length; i++){
+          if(state.cart[i].id == data.id){
+            state.cart[i].quantity++
+            flag = true
+          }
+        }
+      }
+      if(flag) return
       const newPro = {
         id: data.id,
         name: data.name,
