@@ -42,7 +42,7 @@ export default {
       };
       axios.post(this.urlAPI + "auth/login", body).then((response) => {
         // this.$store.dispatch("saveUserData", response.data);
-        this.localStorage.set("userData", response.data);
+        this.localStorage.set("userData", response.data.data[0]);
         this.$router.push("/");
       });
     },

@@ -8,7 +8,9 @@
       <span @click="updateProfile"
         ><ion-icon :icon="cloudUpload"></ion-icon>Cập nhật thông tin</span
       >
-      <span><ion-icon :icon="navigateCircle"></ion-icon>Thêm địa chỉ</span>
+      <span @click="updateAddress"
+        ><ion-icon :icon="navigateCircle"></ion-icon>Thêm địa chỉ</span
+      >
       <span @click="theOrder"
         ><ion-icon :icon="cart"></ion-icon>Đơn hàng của tôi</span
       >
@@ -30,6 +32,7 @@ import {
   logOut,
 } from "ionicons/icons";
 import { alertController } from "@ionic/vue";
+import axios from "axios";
 export default defineComponent({
   name: "Tab2",
   components: {},
@@ -54,8 +57,7 @@ export default defineComponent({
   },
   methods: {
     async getUserData() {
-      let result = await this.localStorage.get("userData");
-      this.user = result.data[0];
+      this.user = await this.localStorage.get("userData");
     },
     logOutHandle() {
       this.localStorage.clear();
@@ -67,12 +69,6 @@ export default defineComponent({
         header: "Thông tin",
         inputs: [
           {
-            value: this.user.name,
-            attributes: {
-              inputmode: "text",
-            },
-          },
-          {
             value: this.user.phone,
             type: "number",
             attributes: {
@@ -80,8 +76,25 @@ export default defineComponent({
             },
           },
           {
+            value: this.user.name,
+            name: "name",
+            attributes: {
+              inputmode: "text",
+            },
+          },
+          {
             value: this.user.email,
+            placeholder: "Email",
+            name: "email",
             type: "email",
+            attributes: {
+              inputmode: "text",
+            },
+          },
+          {
+            placeholder: "Mật khẩu",
+            name: "password",
+            type: "password",
             attributes: {
               inputmode: "text",
             },
@@ -94,8 +107,53 @@ export default defineComponent({
           },
           {
             text: "Cập nhật",
-            handler: () => {
-              console.log("Confirm Ok");
+            handler: (data) => {
+              axios
+                .put("http://127.0.0.1:8000/api/users/" + this.user.id, {
+                  name: data.name,
+                  email: data.email,
+                  password: data.password,
+                })
+                .then(() => {});
+            },
+          },
+        ],
+      });
+      return alert.present();
+    },
+    async updateAddress() {
+      const alert = await alertController.create({
+        cssClass: "alertClass",
+        header: "Địa chỉ",
+        inputs: [
+          {
+            name: "address",
+            value: this.user.address,
+            attributes: {
+              inputmode: "text",
+            },
+          },
+        ],
+        buttons: [
+          {
+            text: "Hủy",
+            role: "cancel",
+          },
+          {
+            text: "Cập nhật",
+            handler: (data) => {
+              axios
+                .put("http://127.0.0.1:8000/api/users/" + this.user.id, {
+                  address: data.address,
+                })
+                .then(() => {
+                  axios
+                    .get("http://127.0.0.1:8000/api/users/" + this.user.id)
+                    .then((response) => {
+                      this.localStorage.set("userData", response.data);
+                      window.location.reload();
+                    });
+                });
             },
           },
         ],
@@ -103,7 +161,7 @@ export default defineComponent({
       return alert.present();
     },
     theOrder() {
-      this.$router.push("/my-order/" + this.user.id);
+      this.$router.push("/my-order");
     },
   },
 });

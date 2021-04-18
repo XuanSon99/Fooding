@@ -5,21 +5,25 @@ const store = createStore({
     return {
       cart: [],
       urlAPI: "http://127.0.0.1:8000/api/",
-      userData: {}
+      userData: {},
+      order: []
     };
   },
   mutations: {
+    orderList(state, data) {
+      state.order = data
+    },
     addCart(state, data) {
       let flag = false
-      if(state.cart[0]){
-        for(let i = 0; i < state.cart.length; i++){
-          if(state.cart[i].id == data.id){
+      if (state.cart[0]) {
+        for (let i = 0; i < state.cart.length; i++) {
+          if (state.cart[i].id == data.id) {
             state.cart[i].quantity++
             flag = true
           }
         }
       }
-      if(flag) return
+      if (flag) return
       const newPro = {
         id: data.id,
         name: data.name,
@@ -41,6 +45,9 @@ const store = createStore({
     }
   },
   actions: {
+    orderList(context, data) {
+      context.commit('orderList', data);
+    },
     addCart(context, data) {
       context.commit('addCart', data);
     },
@@ -55,6 +62,9 @@ const store = createStore({
     }
   },
   getters: {
+    order(state) {
+      return state.order;
+    },
     cart(state) {
       return state.cart;
     },

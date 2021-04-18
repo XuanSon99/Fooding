@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/register',
     component: () => import('@/views/Register.vue'),
-    meta: {show: false}
+    meta: { show: false }
   },
   {
     path: '/',
@@ -57,8 +57,13 @@ const routes = [
         component: () => import('@/views/Profile.vue'),
       },
       {
-        path: '/my-order/:id',
+        path: '/my-order',
         component: () => import('@/views/TheOrder.vue'),
+        meta: { show: true }
+      },
+      {
+        path: '/rating/:id',
+        component: () => import('@/views/Rating.vue'),
         meta: { show: true }
       },
     ]

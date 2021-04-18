@@ -10,9 +10,9 @@
         </ion-slide>
       </ion-slides>
       <div class="detail">
-        <div>
+        <div @click="toRating(product.id)">
           <img src="/images/star.svg" alt="" />
-          <p>4.9 (2.8k)</p>
+          <p>{{ rate }} ({{ count }} lượt)</p>
         </div>
         <div>
           <img src="/images/fire.svg" alt="" />
@@ -32,9 +32,7 @@
         ground meat, usually beef, placed inside a sliced bread roll or bun. The
         patty may be pan fried, grilled, smoked or flame broiled.</span
       >
-      <button class="btn-all" @click="addCart">
-        Add to cart
-      </button>
+      <button class="btn-all" @click="addCart">Add to cart</button>
     </div>
   </base-layout>
 </template>
@@ -48,7 +46,13 @@ export default defineComponent({
   data() {
     return {
       product: {},
+      rate: 0,
+      count: 0,
     };
+  },
+  mounted() {
+    this.getDetail();
+    this.getRate();
   },
   methods: {
     getDetail() {
@@ -56,6 +60,19 @@ export default defineComponent({
         .get("http://127.0.0.1:8000/api/products/" + this.$route.params.id)
         .then((response) => {
           this.product = response.data;
+        });
+    },
+    getRate() {
+      axios
+        .post("http://127.0.0.1:8000/api/rating", {
+          product_id: this.$route.params.id,
+        })
+        .then((response) => {
+          this.count = response.data.length;
+          for (let item of response.data) {
+            this.rate += item.start;
+          }
+          this.rate = (this.rate / this.count).toFixed(1);
         });
     },
     async addCart() {
@@ -82,9 +99,9 @@ export default defineComponent({
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
-  },
-  mounted() {
-    this.getDetail();
+    toRating(id) {
+      this.$router.push("/rating/" + id);
+    },
   },
 });
 </script>

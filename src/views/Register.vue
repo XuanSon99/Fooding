@@ -4,13 +4,13 @@
       <form action="">
         <label for="">Họ tên</label>
         <input type="text" v-model="name" required />
-        <label for="">Email</label>
-        <input type="email" v-model="email" required />
+        <label for="">SĐT</label>
+        <input type="phone" v-model="phone" required />
         <label for="">Mật khẩu</label>
         <input type="password" v-model="password" required />
         <label for="">Xác nhận mật khẩu</label>
         <input type="password" v-model="repassword" required />
-        <button type="submit" @click="login">Đăng ký</button>
+        <button type="submit" @click="register">Đăng ký</button>
         <router-link tag="a" to="/login">Đăng nhập ngay?</router-link>
       </form>
     </div>
@@ -18,32 +18,30 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      email: "",
+      phone: "",
       password: "",
       name: "",
       repassword: "",
     };
   },
   methods: {
-    login(e) {
+    register(e) {
       e.preventDefault();
-      //   this.CallAPI(
-      //     "post",
-      //     "auth/signup",
-      //     {
-      //       name: this.name,
-      //       email: this.email,
-      //       password: this.password,
-      //       password_confirmation: this.repassword,
-      //       level: "reader",
-      //     },
-      //     (res) => {
-      //       this.$toast.success("Đăng ký thành công");
-      //     }
-      //   );
+      axios
+        .post("http://127.0.0.1:8000/api/auth/signup", {
+          name: this.name,
+          phone: this.phone,
+          password: this.password,
+          password_confirmation: this.repassword,
+          level: "customer"
+        })
+        .then((response) => {
+          console.log(response);
+        });
     },
   },
 };

@@ -527,11 +527,6 @@ button.btn-all {
     height: 40px;
 }
 
-.my-bill {
-    padding: 10px 20px;
-    color: #200f33;
-}
-
 .my-bill table {
     width: 100%;
 }
@@ -540,11 +535,222 @@ button.btn-all {
     padding: 5px;
 }
 
-.my-bill table tr:not(:last-child) td{
-    border-bottom: 1px solid #200f331e;
+.my-bill table:not(:last-child) {
+    margin-bottom: 10px;
 }
 
 .my-bill table td:first-child {
     font-weight: 600;
+    width: 60%;
+}
+
+.my-bill .overview {
+    margin-top: 10px;
+    border-radius: 8px 50px 8px 50px;
+    box-shadow: 4px 4px 10px 1px #200f3341;
+    padding: 12px 40px;
+    background: #200f33;
+    color: #FAC900;
+    font-weight: 600;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.my-bill img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.my-bill>table td {
+    width: 30%;
+    text-align: center;
+}
+
+.my-bill>table td:first-child {
     width: 40%;
+    text-align: center;
+}
+
+.my-bill>table {
+    box-shadow: 4px 4px 10px 1px #200f3341;
+    border-radius: 50px;
+}
+
+.my-bill {
+    background: none;
+    border-radius: 8px 50px 8px 50px;
+    background: linear-gradient(to bottom right, #ebeeff 0%, #f9e3e5 100%);
+    padding: 20px;
+    color: #200f33;
+    box-shadow: 4px 4px 10px 1px #200f3341;
+}
+
+.comment {
+    padding: 15px 20px 10px 20px;
+    margin: 16px;
+}
+
+.comment p {
+    color: #200f33;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.comment p ion-icon {
+    margin-left: 5px;
+}
+
+.comment table {
+    width: 100%;
+}
+
+.comment table img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.comment table td {
+    padding: 0;
+}
+
+.comment table td:first-child {
+    width: 70px;
+}
+
+.textbox {
+    margin: 16px;
+    display: flex;
+    box-shadow: 4px 4px 10px 1px #e6e9fce8;
+    border-radius: 50px;
+}
+
+.textbox input {
+    border: none;
+    height: 40px;
+    outline: none;
+    padding: 0 20px;
+    width: calc(100% - 60px);
+    border-radius: 50px;
+}
+
+.textbox span {
+    height: 40px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #200f33;
+    border-radius: 0 50px 50px 0;
+    color: #FAC900;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.textbox.cmt span:nth-child(2) {
+    background: none;
+    color: #FAC900;
+    width: 40px;
+}
+
+.textbox.cmt span {
+    width: 50px;
+}
+
+.textbox.cmt input {
+    width: calc(100% - 90px);
+}
+
+ion-card {
+    margin: 16px;
+    box-shadow: 4px 4px 10px 1px #e6e9fce8;
+}
+
+.empty-order {
+    padding: 40px 20px;
+    background: linear-gradient(to bottom right, #ebeeff 0%, #f9e3e5 100%);
+    border-radius: 15px;
+}
+
+.empty-order h1 {
+    font-style: 26px;
+    color: #200f33;
+    text-align: center;
+    margin: 10px;
+    margin-bottom: 20px;
+}
+
+.empty-order a {
+    text-decoration: none;
+}
+
+.empty-order .btn-all {
+    width: 160px;
+    height: 50px;
+    margin: 10px auto;
+    background: #200f33;
+    color: #FAC900;
+    box-shadow: 5px 5px 10px #200f3365;
+}
+
+.empty-order span {
+    font-size: 28px;
+    color: #FAC900;
+    font-weight: 700;
+}
+
+.comment.rate {
+    color: #200f33;
+    font-weight: 600;
+}
+
+.comment.rate p {
+    font-size: 16px;
+}
+
+.comment.rate input {
+    outline: none;
+    display: none;
+}
+
+.comment.rate ion-icon {
+    color: #FAC900;
+    font-size: 28px;
+}
+
+.rate-star {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.rate-star span {
+    display: block;
+    margin-right: 5px;
+}
+
+.rate-star button {
+    height: 35px;
+    width: 60px;
+    outline: none;
+    border-radius: 7px;
+    background: #200f33;
+    color: #FAC900;
+    box-shadow: 3px 3px 10px #200f3365;
+}
+
+.rate-star div {
+    display: flex;
+}
+
+.comment table span {
+    display: block;
+}
+
+.comment table span ion-icon {
+    font-size: 12px;
+    color: #FAC900;
 }

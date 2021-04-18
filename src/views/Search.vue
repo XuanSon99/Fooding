@@ -1,16 +1,16 @@
 <template>
   <base-layout pageTitle="Search">
-    <ion-searchbar
-      :value="search"
-      inputmode="text"
-      animated
-      color="light"
-      @ionInput="search = $event.target.value"
-      @ionChange="searchHandle"
-    ></ion-searchbar>
-    <!-- <div class="container">
-      <h1 class="title-1" style="margin-top: 5px">Hot item</h1>
-    </div> -->
+    <div class="textbox">
+      <input
+        type="text"
+        v-model="search"
+        @input="removeSearch"
+        placeholder="Tìm kiếm..."
+      />
+      <span @click="searchHandle"
+        ><ion-icon :icon="searchOutline"></ion-icon
+      ></span>
+    </div>
     <ion-card
       v-for="(item, index) in proList"
       :key="index"
@@ -21,7 +21,7 @@
       <div>
         <h3>{{ item.name }}</h3>
         <p>{{ item.time }}</p>
-        <span>₫ {{ item.price }}</span>
+        <span>₫ {{ formatMoney(item.price) }}</span>
       </div>
     </ion-card>
   </base-layout>
@@ -29,8 +29,12 @@
 
 <script>
 import axios from "axios";
+import { searchOutline } from "ionicons/icons";
 export default {
   name: "Tab2",
+  setup() {
+    return { searchOutline };
+  },
   data() {
     return {
       search: "",
@@ -58,9 +62,18 @@ export default {
       axios
         .post(this.urlAPI + "search", { query: this.search })
         .then((response) => {
-          console.log(response);
           this.proList = response.data.data;
         });
+    },
+    removeSearch() {
+      if (!this.search) {
+        this.getList();
+      }
+    },
+    formatMoney(value) {
+      return String(value)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
   },
 };

@@ -43,7 +43,9 @@
     </div>
     <ion-card v-else class="empty-cart">
       <h1>Giỏ hàng trống</h1>
-      <router-link to="/home"><button class="btn-all">Mua ngay</button></router-link>
+      <router-link to="/home"
+        ><button class="btn-all">Mua ngay</button></router-link
+      >
     </ion-card>
   </base-layout>
 </template>
@@ -95,8 +97,8 @@ export default defineComponent({
   methods: {
     async checkOut() {
       let addressList = [];
-      let add = "Hà Nội;Hà Tây;Đồng Hới;Sơn Tây";
-      add.split(";").forEach((item) => {
+      let add = this.userData.address;
+      add.split(",").forEach((item) => {
         addressList.push({
           type: "radio",
           label: item,
@@ -124,21 +126,24 @@ export default defineComponent({
     },
     async OrderHandle() {
       if (!this.cart[0]) return;
+      let bill_id = Date.now();
       for (let item of this.cart) {
         let body = {
-          user_id: this.userData.data[0].id,
+          user_id: this.userData.id,
           product_id: item.id,
-          phone: this.userData.data[0].phone,
+          phone: this.userData.phone,
           address: this.address,
           price: item.price * item.quantity,
           quantity: item.quantity,
           status: "yes",
+          bill_id: String(bill_id),
         };
         axios.post(this.urlAPI + "bills", body).then((response) => {
           console.log(response);
         });
       }
       this.$store.dispatch("removeAllCart");
+      this.addOrderToStore();
       const toast = await toastController.create({
         message: "Đặt hàng thành công",
         duration: 2000,
@@ -146,6 +151,15 @@ export default defineComponent({
         position: "top",
       });
       return toast.present();
+    },
+    addOrderToStore() {
+      axios
+        .post(this.urlAPI + "my-order", {
+          user_id: this.userData.id,
+        })
+        .then((response) => {
+          this.$store.dispatch("orderList", response.data);
+        });
     },
     quantityHandle(item, method) {
       var index = this.cart.indexOf(item);
